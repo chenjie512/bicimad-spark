@@ -11,4 +11,4 @@
 - [ ] Viaje más largos y más cortos.
 - [x] Estaciones más concurridas.
 - [x] Gráfica con usos por cada día.
-- [ ] Gráfica por edad.
+- [x] Gráfica por edad.
