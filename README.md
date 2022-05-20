@@ -8,7 +8,7 @@
   Media de la duración por viaje individual.
 - [x] Uso medio de los usuarios.
   Media de todos uso por identificación.
-- [ ] Viaje más largos y más cortos.
+- [x] Viaje más largos y más cortos.
 - [x] Estaciones más concurridas.
 - [x] Gráfica con usos por cada día.
 - [x] Gráfica por edad.
