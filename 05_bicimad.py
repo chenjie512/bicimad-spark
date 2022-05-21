@@ -13,15 +13,15 @@ def mapper(line):
 
 
 def main(sc, filename):
-    #carga el archivo
+    # Carga el archivo
     rdd_base = sc.textFile(filename)
     
-    #filtra los usuarios de tipo 1 y 2
+    # Filtra los usuarios de tipo 1 y 2
     rdd = rdd_base.map(mapper)\
-        .filter(lambda x: x[4] in [1, 2])\
-        .map(lambda x: x[:4])
+                .filter(lambda x: x[4] in [1, 2])\
+                .map(lambda x: x[:4])
     
-    #ordena las estaciones segun aparicion y distingue entre estaciones de salida o llegada
+    # Ordena las estaciones según aparición y distingue entre estaciones de salida o llegada
     rdd_stations_out = rdd.map(lambda x: (x[1], 1))\
                             .groupByKey()\
                             .mapValues(sum)\
@@ -52,5 +52,3 @@ if __name__ == "__main__":
     filename = sys.argv[1]
     sc = SparkContext()
     main(sc, filename)
-    
-    

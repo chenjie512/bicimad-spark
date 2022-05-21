@@ -13,27 +13,28 @@ def mapper(line):
 
 
 def main(sc, filename):
-    #carga el archivo
+    # Carga el archivo
     rdd_base = sc.textFile(filename)
     
-    #filtra los usuarios de tipo 1 y 2
+    # Filtra los usuarios de tipo 1 y 2
     rdd = rdd_base.map(mapper)\
         .filter(lambda x: x[4] in [1, 2])\
         .map(lambda x: x[:4])
     
-    #realiza los calculos y los guarda en el archivo de salida
+    ## Realiza los cálculos y los guarda en el archivo de salida
     
-    #tiempo medio por viaje
+    # Extracción de tiempos de viaje
     rdd_travelTime = rdd.map(lambda x: x[3])
 
+    # Cálculo de totales
     total_travels = rdd_travelTime.count()
     total_travelTime = rdd_travelTime.sum()
     average_travelTime = total_travelTime/total_travels
     
     out = open(f'02_out.txt', 'w')
-    out.write(f'viajes: {total_travels}\n')
-    out.write(f'tiempo: {total_travelTime}\n')
-    out.write(f'media por viaje: {average_travelTime} segundos\n')
+    out.write(f'Viajes: {total_travels}\n')
+    out.write('Duración total: ' + format(total_travelTime/3600, ".2f") + ' horas\n')
+    out.write('Media por viaje: ' + format(average_travelTime/60, ".2f") + ' minutos\n')
     out.close()
 
 if __name__ == "__main__":

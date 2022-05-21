@@ -15,21 +15,21 @@ def mapper(line):
 
 
 def main(sc, filename):
-    #carga el archivo
+    # Carga el archivo
     rdd_base = sc.textFile(filename)
     
-    #filtra los usuarios de tipo 1 y 2
+    # Filtra los usuarios de tipo 1 y 2
     rdd = rdd_base.map(mapper)\
         .filter(lambda x: x[5] in [1, 2])\
         .map(lambda x: x[:5])
     
-    #cuenta solamente segun los dias de la fecha
+    # Cuenta solamente según los días de la fecha
     dict_days = rdd.map(lambda x: (x[4]['$date'][8:10], 0))\
                     .countByKey()
     days = dict_days.keys()
     num_usage = dict_days.values()
     
-    #lo guarda en una grafica de barras
+    # Se representa en una gráfica de barras
     plt.figure(figsize=(8,6))
     plt.bar(days, num_usage)
     plt.ylabel('Número de usos')

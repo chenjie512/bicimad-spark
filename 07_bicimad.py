@@ -15,27 +15,27 @@ def mapper(line):
 
 
 def main(sc, filename):
-    #carga el archivo
+    # Carga el archivo
     rdd_base = sc.textFile(filename)
     
-    #filtra los usuarios de tipo 1 y 2
+    # Filtra los usuarios de tipo 1 y 2
     rdd = rdd_base.map(mapper)\
         .filter(lambda x: x[5] in [1, 2])\
         .map(lambda x: x[:5])
     
-    #los ordena segun el rango de la edad para luego contar sus usos
+    # Se ordena según el rango de la edad para luego contar sus usos
     rdd_age = rdd.map(lambda x: (x[4], 1))\
                     .groupByKey()\
                     .sortByKey()\
                     .mapValues(sum)\
                     .values()
     
-    age = ['desconocido','0-16','17-18','19-26','27-40', '41-65','66+']
+    age_ranges = ['desconocido', '0-16', '17-18', '19-26', '27-40', '41-65', '66+']
     num_usage = rdd_age.collect()
     
-    #lo guarda en una grafica de barras
+    # Se guarda en una gráfica de barras
     plt.figure(figsize=(8,6))
-    plt.bar(age, num_usage)
+    plt.bar(age_ranges, num_usage)
     plt.ylabel('Número de usos')
     plt.xlabel('Rango de edad')
     plt.title('Uso por edades')
@@ -49,5 +49,3 @@ if __name__ == "__main__":
     filename = sys.argv[1]
     sc = SparkContext()
     main(sc, filename)
-    
-    
