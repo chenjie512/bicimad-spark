@@ -32,7 +32,7 @@ def main(sc, filename):
     total_travelTime_id = rdd_travelTime_id.sum()
     average_travelTime_id = total_travelTime_id/total_travels_id
     
-    out = open(f'02_out.txt', 'w')
+    out = open(f'03_out.txt', 'w')
     out.write(f'Personas (id): {total_travels_id}\n')
     out.write('Duración total: ' + format(total_travelTime_id/3600, ".2f") + ' horas\n')
     out.write('Media por persona: ' + format(average_travelTime_id/60, ".2f") + ' minutos\n')
